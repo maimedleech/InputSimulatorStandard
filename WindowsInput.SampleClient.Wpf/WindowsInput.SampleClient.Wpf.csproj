@@ -93,9 +93,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InputSimulator\InputSimulator.csproj">
+    <ProjectReference Include="..\WindowsInputPlus\WindowsInputPlus.csproj">
       <Project>{3549CD6F-80F8-450F-B99E-CF0A736B1F2A}</Project>
-      <Name>InputSimulator</Name>
+      <Name>WindowsInputPlus</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
