@@ -29,20 +29,20 @@ steps:
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
 
 - powershell: |
-    Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse -File
+    Get-ChildItem -Path $(Build.ArtifactStagingDirectory) -Recurse -File
   displayName: 'Show all files in directory'
 
 - script: |
     %USERPROFILE%\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '**/coverage.opencover.xml' -t '$(CODECOV_TOKEN)''
   displayName: 'Upload coverage to codecov.io'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+# - task: VSBuild@1
+#   inputs:
+#     solution: '$(solution)'
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+# - task: VSTest@2
+#   inputs:
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
