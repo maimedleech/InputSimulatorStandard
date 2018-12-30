@@ -1,5 +1,5 @@
 branches:
-  dev(elop)?(ment)?$:
+  develop:
     tag: beta
-  releases?[/-]:
+  release:
     tag: rc
