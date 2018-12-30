@@ -21,15 +21,19 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- script: |
-    dotnet test '$(solution)' -c '$(buildConfiguration)' --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+- task: DotNetCoreCLI@2
   displayName: 'Build source, tests and run tests with coverage'
+  inputs:
+    command: test
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
 
 - script: |
     %USERPROFILE%\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '**/coverage.opencover.xml' -t '$(CODECOV_TOKEN)''
   displayName: 'Upload coverage to codecov.io'
 
 - task: PublishTestResults@2
+  condition: succeededOrFailed()
   inputs:
     testRunner: VSTest
     testResultsFiles: '**/*.trx'
