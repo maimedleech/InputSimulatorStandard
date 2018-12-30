@@ -28,9 +28,9 @@ steps:
     projects: '**/*.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
 
-- script: |
-    dir $(Build.SourcesDirectory)\InputSimulatorStandard.Tests
-  displayName: 'Show files in directory'
+- powershell: |
+    Get-ChildItem -Path $(Build.SourcesDirectory) -Recurse -File
+  displayName: 'Show all files in directory'
 
 - script: |
     %USERPROFILE%\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '**/coverage.opencover.xml' -t '$(CODECOV_TOKEN)''
