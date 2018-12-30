@@ -22,7 +22,7 @@ steps:
 #    restoreSolution: '$(solution)'
 
 - script: dotnet tool install -g GitVersion.Tool --version 4.0.1-beta1-58
-- script: dotnet-gitversion /output buildserver
+- script: dotnet gitversion /output buildserver
 - bash: printenv | sort
 
 - task: DotNetCoreCLI@2
