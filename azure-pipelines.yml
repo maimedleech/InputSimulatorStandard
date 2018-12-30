@@ -28,7 +28,10 @@ steps:
 - script: |
     dotnet tool install -g GitVersion.Tool --version 4.0.1-beta1-58
     dotnet gitversion /output buildserver
-- bash: printenv | sort
+  displayName: 'Install and run GitVersion.Tool'
+
+# - bash: printenv | sort
+#   displayName: 'List environment variables'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build source'
@@ -45,7 +48,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
 
 - powershell: |
-    Get-ChildItem -Path $(Build.ArtifactStagingDirectory) -Recurse -File
+    Get-ChildItem -Path $(Agent.HomeDirectory) -Recurse -File
   displayName: 'Show all files in directory'
 
 - script: |
