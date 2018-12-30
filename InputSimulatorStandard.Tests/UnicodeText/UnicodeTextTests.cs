@@ -124,7 +124,7 @@ namespace InputSimulatorStandard.Tests.UnicodeText
                            new []{new UnicodeRange("Ugaritic", 0x10380, 0x1039F)}
                        };
 
-        [Theory]
+        [Theory(Skip = "Run only interactive")]
         [MemberData(nameof(UnicodeTestCases))]
         public void TestUnicodeRanges(UnicodeRange range)
         {
@@ -149,12 +149,14 @@ namespace InputSimulatorStandard.Tests.UnicodeText
                             {
                                 Thread.Sleep(250);
                             }
+
                             var sim = new InputSimulator();
                             sim.Keyboard.TextEntry(range.Characters);
                             while (form.Received != form.Expected)
                             {
                                 Thread.Sleep(500);
                             }
+
                             form.Close();
                         }, TaskCreationOptions.LongRunning);
 
@@ -164,7 +166,7 @@ namespace InputSimulatorStandard.Tests.UnicodeText
             // ReSharper restore AccessToDisposedClosure
         }
 
-        [Fact]
+        [Fact(Skip = "Generate Unicode test data manually")]
         public void GetCharacterRanges()
         {
             using (var client = new WebClient())
