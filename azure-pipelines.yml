@@ -22,7 +22,14 @@ steps:
 #    restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build source, tests and run tests with coverage'
+  displayName: 'Build source'
+  inputs:
+    command: build
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Run tests with coverage'
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
