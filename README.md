@@ -6,6 +6,7 @@ This fork supports scan codes, making it compatible with many applications that 
 The target framework has been changed to .Net Standard to support the usage with .Net Core and .Net Framework projects on Windows.
 
 [![Build Status](https://dev.azure.com/GregsStack/GitHub/_apis/build/status/GregsStack.InputSimulatorStandard?branchName=master)](https://dev.azure.com/GregsStack/GitHub/_build/latest?definitionId=2?branchName=master)
+[![codecov](https://codecov.io/gh/GregsStack/InputSimulatorStandard/branch/master/graph/badge.svg)](https://codecov.io/gh/GregsStack/InputSimulatorStandard)
 
 # Examples
 
