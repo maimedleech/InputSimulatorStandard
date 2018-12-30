@@ -21,6 +21,8 @@ steps:
 #  inputs:
 #    restoreSolution: '$(solution)'
 
+- task: DotNetCoreInstaller@0
+
 - script: |
     dotnet tool install -g GitVersion.Tool --version 4.0.1-beta1-58
     dotnet gitversion /output buildserver
