@@ -25,7 +25,7 @@ steps:
   displayName: 'Build source, tests and run tests with coverage'
   inputs:
     command: test
-    projects: '$(solution)'
+    projects: '**/*.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
 
 - script: |
