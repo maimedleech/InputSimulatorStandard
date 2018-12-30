@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Title>Windows Input Simulator Plus</Title>
     <Authors>Michael Noonan, Theodoros Chatzigiannakis, Gregor Sindl</Authors>
-    <Copyright>$(Authors)</Copyright>
+    <Copyright>Copyright 2009-2018</Copyright>
     <PackageLicenseUrl>https://opensource.org/licenses/MS-PL</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Gh0stWalk3r/InputSimulatorPlus</PackageProjectUrl>
     <Description>This package is a fork of the Windows Input Simulator package. If you have encountered applications that do not receive input from the original Windows Input Simulator, try replacing it with this package instead.</Description>
