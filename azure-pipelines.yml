@@ -48,7 +48,8 @@ steps:
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
 
 - powershell: |
-    Get-ChildItem -Path $(Agent.HomeDirectory) -Recurse -File
+    Get-ChildItem -Path 'D:\a' -Recurse -File -Filter '*.xml'
+    Get-ChildItem -Path 'D:\a' -Recurse -File -Filter '*.trx'
   displayName: 'Show all files in directory'
 
 - script: |
