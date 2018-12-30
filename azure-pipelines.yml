@@ -15,11 +15,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@0
+#- task: NuGetToolInstaller@0
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+#- task: NuGetCommand@2
+#  inputs:
+#    restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build source, tests and run tests with coverage'
@@ -29,14 +29,12 @@ steps:
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
 
 - script: |
+    dir ./InputSimulatorStandard.Tests
+  displayName: 'Show files in directory'
+
+- script: |
     %USERPROFILE%\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '**/coverage.opencover.xml' -t '$(CODECOV_TOKEN)''
   displayName: 'Upload coverage to codecov.io'
-
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
 
 - task: VSBuild@1
   inputs:
