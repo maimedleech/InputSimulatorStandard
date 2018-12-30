@@ -1,7 +1,9 @@
-# Windows Input Simulator Plus
-This library is a fork of Michael Noonan's *Windows Input Simulator* (a C# wrapper around the `SendInput` functionality of Windows) and it can be used as a replacement of the original library without any source code changes.
+# Input Simulator Standard
+This library is a fork of Michael Noonan's *Windows Input Simulator* (a C# wrapper around the `SendInput` functionality of Windows). It can be used as a replacement of the original library with some small source code changes.
 
 This fork supports scan codes, making it compatible with many applications that the original library does not support.
+
+The target framework has been changed to .Net Standard to support the usage with .Net Core and .Net Framework projects on Windows.
 
 # Examples
 
