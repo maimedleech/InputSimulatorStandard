@@ -24,14 +24,14 @@
         /// </summary>
         private readonly IInputMessageDispatcher messageDispatcher;
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="MouseSimulator"/> class using an instance of a <see cref="WindowsInputMessageDispatcher"/> for dispatching <see cref="Input"/> messages.
+        /// Initializes a new instance of the <see cref="T:InputSimulatorStandard.MouseSimulator" /> class using an instance of a <see cref="T:InputSimulatorStandard.WindowsInputMessageDispatcher" /> for dispatching <see cref="T:InputSimulatorStandard.Native.Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
+        /// <param name="inputSimulator">The <see cref="T:InputSimulatorStandard.IInputSimulator" /> that owns this instance.</param>
         public MouseSimulator(IInputSimulator inputSimulator)
+            : this(inputSimulator, new WindowsInputMessageDispatcher())
         {
-            this.inputSimulator = inputSimulator ?? throw new ArgumentNullException(nameof(inputSimulator));
-            this.messageDispatcher = new WindowsInputMessageDispatcher();
         }
 
         /// <summary>
