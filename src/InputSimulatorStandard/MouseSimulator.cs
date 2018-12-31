@@ -11,12 +11,6 @@
     /// </summary>
     public class MouseSimulator : IMouseSimulator
     {
-        /// <inheritdoc />
-        /// <summary>
-        /// Gets or sets the amount of mouse wheel scrolling per click. The default value for this property is 120 and different values may cause some applications to interpret the scrolling differently than expected.
-        /// </summary>
-        public int MouseWheelClickSize { get; set; } = 120;
-
         private readonly IInputSimulator inputSimulator;
 
         /// <summary>
@@ -50,19 +44,16 @@
 
         /// <inheritdoc />
         /// <summary>
+        /// Gets or sets the amount of mouse wheel scrolling per click. The default value for this property is 120 and different values may cause some applications to interpret the scrolling differently than expected.
+        /// </summary>
+        public int MouseWheelClickSize { get; set; } = 120;
+
+        /// <inheritdoc />
+        /// <summary>
         /// Gets the <see cref="IKeyboardSimulator" /> instance for simulating Keyboard input.
         /// </summary>
         /// <value>The <see cref="IKeyboardSimulator" /> instance.</value>
         public IKeyboardSimulator Keyboard => this.inputSimulator.Keyboard;
-
-        /// <summary>
-        /// Sends the list of <see cref="Input"/> messages using the <see cref="IInputMessageDispatcher"/> instance.
-        /// </summary>
-        /// <param name="inputList">The <see cref="System.Array"/> of <see cref="Input"/> messages to send.</param>
-        private void SendSimulatedInput(Input[] inputList)
-        {
-            this.messageDispatcher.DispatchInput(inputList);
-        }
 
         /// <inheritdoc />
         /// <summary>
@@ -267,6 +258,15 @@
         {
             Thread.Sleep(timeout);
             return this;
+        }
+
+        /// <summary>
+        /// Sends the list of <see cref="Input"/> messages using the <see cref="IInputMessageDispatcher"/> instance.
+        /// </summary>
+        /// <param name="inputList">The <see cref="System.Array"/> of <see cref="Input"/> messages to send.</param>
+        private void SendSimulatedInput(Input[] inputList)
+        {
+            this.messageDispatcher.DispatchInput(inputList);
         }
 
         private IMouseSimulator ButtonDown(MouseButton mouseButton)
