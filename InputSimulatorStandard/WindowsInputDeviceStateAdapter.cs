@@ -1,7 +1,7 @@
-﻿using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using Native;
+
     /// <inheritdoc />
     /// <summary>
     /// An implementation of <see cref="IInputDeviceStateAdapter" /> for Windows by calling the native <see cref="NativeMethods.GetKeyState(ushort)" /> and <see cref="NativeMethods.GetAsyncKeyState(ushort)" /> methods.
@@ -52,10 +52,7 @@ namespace InputSimulatorStandard
         /// VK_RMENU
         /// These left- and right-distinguishing constants are available to an application only through the GetKeyboardState, SetKeyboardState, GetAsyncKeyState, GetKeyState, and MapVirtualKey functions. 
         /// </remarks>
-        public bool IsKeyUp(VirtualKeyCode keyCode)
-        {
-            return !this.IsKeyDown(keyCode);
-        }
+        public bool IsKeyUp(VirtualKeyCode keyCode) => !this.IsKeyDown(keyCode);
 
         /// <inheritdoc />
         /// <summary>
@@ -105,10 +102,7 @@ namespace InputSimulatorStandard
         /// VK_RMENU Right-menu key. 
         /// These left- and right-distinguishing constants are only available when you call the GetKeyboardState, SetKeyboardState, GetAsyncKeyState, GetKeyState, and MapVirtualKey functions. 
         /// </remarks>
-        public bool IsHardwareKeyUp(VirtualKeyCode keyCode)
-        {
-            return !this.IsHardwareKeyDown(keyCode);
-        }
+        public bool IsHardwareKeyUp(VirtualKeyCode keyCode) => !this.IsHardwareKeyDown(keyCode);
 
         /// <inheritdoc />
         /// <summary>

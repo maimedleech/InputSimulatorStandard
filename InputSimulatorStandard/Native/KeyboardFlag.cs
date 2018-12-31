@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace InputSimulatorStandard.Native
+﻿namespace InputSimulatorStandard.Native
 {
+    using System;
+
     /// <summary>
     /// Specifies various aspects of a keystroke. This member can be certain combinations of the following values.
     /// </summary>

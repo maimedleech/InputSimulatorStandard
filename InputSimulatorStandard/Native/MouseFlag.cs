@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace InputSimulatorStandard.Native
+﻿namespace InputSimulatorStandard.Native
 {
+    using System;
+
     /// <summary>
     /// The set of mouse flags for use in the Flags property of the <see cref="MouseInput"/> structure. (See: http://msdn.microsoft.com/en-us/library/ms646273(VS.85).aspx)
     /// </summary>

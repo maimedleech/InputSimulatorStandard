@@ -1,10 +1,10 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
-using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using System;
+    using System.Runtime.InteropServices;
+
+    using Native;
+
     /// <inheritdoc />
     /// <summary>
     /// Implements the <see cref="IInputMessageDispatcher" /> by calling <see cref="NativeMethods.SendInput(uint,Input[],int)" />.

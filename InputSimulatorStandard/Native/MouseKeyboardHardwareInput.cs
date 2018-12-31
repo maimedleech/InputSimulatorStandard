@@ -1,7 +1,7 @@
-﻿using System.Runtime.InteropServices;
-
-namespace InputSimulatorStandard.Native
+﻿namespace InputSimulatorStandard.Native
 {
+    using System.Runtime.InteropServices;
+
     /// <summary>
     /// The combined structure that includes Mouse, Keyboard and Hardware Input message data (see: http://msdn.microsoft.com/en-us/library/ms646270(VS.85).aspx)
     /// </summary>

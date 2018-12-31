@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-
-using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+
+    using Native;
+
     /// <inheritdoc />
     /// <summary>
     /// Implements the <see cref="IKeyboardSimulator" /> interface by calling the an <see cref="IInputMessageDispatcher" /> to simulate Keyboard gestures.
@@ -52,22 +52,39 @@ namespace InputSimulatorStandard
 
         private void ModifiersDown(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
         {
-            if (modifierKeyCodes == null) return;
-            foreach (var key in modifierKeyCodes) builder.AddKeyDown(key);
+            if (modifierKeyCodes == null)
+            {
+                return;
+            }
+
+            foreach (var key in modifierKeyCodes)
+            {
+                builder.AddKeyDown(key);
+            }
         }
 
         private void ModifiersUp(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
         {
-            if (modifierKeyCodes == null) return;
+            if (modifierKeyCodes == null)
+            {
+                return;
+            }
 
             // Key up in reverse (I miss LINQ)
             var stack = new Stack<VirtualKeyCode>(modifierKeyCodes);
-            while (stack.Count > 0) builder.AddKeyUp(stack.Pop());
+            while (stack.Count > 0)
+            {
+                builder.AddKeyUp(stack.Pop());
+            }
         }
 
         private void KeysPress(InputBuilder builder, IEnumerable<VirtualKeyCode> keyCodes)
         {
-            if (keyCodes == null) return;
+            if (keyCodes == null)
+            {
+                return;
+            }
+
             foreach (var key in keyCodes)
             {
                 builder.AddKeyPress(key);

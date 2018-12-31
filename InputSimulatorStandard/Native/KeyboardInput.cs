@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace InputSimulatorStandard.Native
+﻿namespace InputSimulatorStandard.Native
 {
+    using System;
+
     /// <summary>
     /// The <see cref="KeyboardInput"/> structure contains information about a simulated keyboard event.  (see: http://msdn.microsoft.com/en-us/library/ms646271(VS.85).aspx)
     /// Declared in Winuser.h, include Windows.h

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using System;
+    using System.Collections.Generic;
+
+    using Native;
+
     /// <summary>
     /// The service contract for a keyboard simulator for the Windows platform.
     /// </summary>

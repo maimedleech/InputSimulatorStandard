@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using System;
+
     /// <summary>
     /// The service contract for a mouse simulator for the Windows platform.
     /// </summary>

@@ -1,7 +1,7 @@
-﻿using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using Native;
+
     /// <summary>
     /// The contract for a service that interprets the state of input devices.
     /// </summary>

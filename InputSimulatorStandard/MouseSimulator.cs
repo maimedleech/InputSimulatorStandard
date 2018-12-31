@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-
-using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using System;
+    using System.Threading;
+
+    using Native;
+
     /// <inheritdoc />
     /// <summary>
     /// Implements the <see cref="IMouseSimulator" /> interface by calling the an <see cref="IInputMessageDispatcher" /> to simulate Mouse gestures.

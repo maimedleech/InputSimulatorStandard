@@ -1,9 +1,9 @@
-﻿using System;
-
-using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using System;
+
+    using Native;
+
     /// <summary>
     /// The contract for a service that dispatches <see cref="Input"/> messages to the appropriate destination.
     /// </summary>
