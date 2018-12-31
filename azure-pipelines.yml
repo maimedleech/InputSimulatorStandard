@@ -20,7 +20,6 @@ steps:
 
 - script: |
     dotnet tool install -g GitVersion.Tool --version 4.0.1-beta1-58
-    dotnet tool install -g altcover.global
   displayName: 'Install global tools'
 
 - script: dotnet-gitversion /output buildserver
@@ -36,37 +35,19 @@ steps:
     projects: '$(solution)'
     arguments: '--configuration $(buildConfiguration)'
 
+- powershell: |
+    $testAssemblies = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter '*.Tests.csproj' | Select-Object -ExpandProperty BaseName
+    Write-Output "##vso[task.setvariable variable=testAssemblies]$($testAssemblies -join '|')"
+  displayName: 'Set test assembly filter variable'
+
 - task: DotNetCoreCLI@2
-  displayName: 'Run tests'
+  displayName: 'Run tests with coverage'
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build'
-
-- powershell: |
-    [array]$testAssemblies = Get-ChildItem -Recurse -File -Filter "*.Tests.dll" | Where-Object -Property Directory -Like "*\bin\*"
-    $testAssembliesFilter = $testAssemblies.BaseName -join '|'
-    foreach ($testAssembly in $testAssemblies) {
-      try {
-        $assemblyDirectory = $testAssembly.Directory.FullName
-        $workingDirectory = Join-Path -Path $assemblyDirectory -ChildPath "..\..\.."
-        Push-Location -Path $workingDirectory
-        altcover -i "$assemblyDirectory" --opencover -e "xunit|$testAssembliesFilter"
-      }
-      finally {
-        Pop-Location
-      }
-    }
-  displayName: 'Create coverage report'
+    arguments: '--configuration $(buildConfiguration) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
 
 - powershell: |
     $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
-    $fullPath = $coverageFile.FullName
-    Copy-Item -Path $fullPath -Destination '$(Build.StagingDirectory)'
-    & "$ENV:USERPROFILE\.nuget\packages\codecov\1.1.0\tools\codecov.exe" -f "$fullPath" -t '$(CODECOV_TOKEN)'
+    & "$ENV:USERPROFILE\.nuget\packages\codecov\1.1.0\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
-
-- task: PublishPipelineArtifact@0
-  inputs:
-    artifactName: 'coverage.xml'
-    targetPath: '$(Build.StagingDirectory)'
