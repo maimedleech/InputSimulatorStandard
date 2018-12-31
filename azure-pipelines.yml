@@ -45,15 +45,11 @@ steps:
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+    arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit"'
 
 - powershell: |
-    Get-ChildItem -Path 'D:\a' -Recurse -File -Filter '*.xml'
-    Get-ChildItem -Path 'D:\a' -Recurse -File -Filter '*.trx'
-  displayName: 'Show all files in directory'
-
-- script: |
-    %USERPROFILE%\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '**/coverage.opencover.xml' -t '$(CODECOV_TOKEN)''
+    $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
+    %USERPROFILE%\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '$($coverageFile.FullName)' -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
 
 # - task: VSBuild@1
