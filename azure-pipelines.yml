@@ -20,30 +20,44 @@ steps:
 
 - script: |
     dotnet tool install -g GitVersion.Tool --version 4.0.1-beta1-58
-    dotnet gitversion /output buildserver
-  displayName: 'Install and run GitVersion.Tool'
+    dotnet tool install -g altcover.global
+  displayName: 'Install global tools'
+
+- script: dotnet-gitversion /output buildserver
+  displayName: 'Run GitVersion.Tool'
 
 # - bash: printenv | sort
 #   displayName: 'List environment variables'
 
-# - task: DotNetCoreCLI@2
-#   displayName: 'Build source'
-#   inputs:
-#     command: build
-#     projects: '$(solution)'
-#     arguments: '--configuration $(buildConfiguration)'
-
-- powershell: |
-    $testAssemblies = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter '*.Tests.csproj' | Select-Object -ExpandProperty BaseName
-    Write-Output "##vso[task.setvariable variable=testAssemblies]$($testAssemblies -join '|')"
-  displayName: 'Set test assembly filter variable'
+- task: DotNetCoreCLI@2
+  displayName: 'Build source'
+  inputs:
+    command: build
+    projects: '$(solution)'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Run tests with coverage'
+  displayName: 'Run tests'
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
+    arguments: '--configuration $(buildConfiguration) --no-build'
+
+- powershell: |
+    [array]$testAssemblies = Get-ChildItem -Recurse -File -Filter "*.Tests.dll" | Where-Object -Property Directory -Like "*\bin\*"
+    $testAssemblies = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter '*.Tests.csproj' | Select-Object -ExpandProperty BaseName
+    $testAssembliesFilter = $testAssemblies.BaseName -join '|'
+    foreach ($testAssembly in $testAssemblies) {
+      try {
+        $assemblyDirectory = $testAssembly.Directory.FullName
+        Push-Location -Path $(Join-Path -Path $assemblyDirectory -ChildPath "..\..\..")
+        altcover -i $assemblyDirectory --opencover -e "xunit|$testAssembliesFilter"
+      }
+      finally {
+        Pop-Location
+      }
+    }
+  displayName: 'Run tests with coverage'
 
 - powershell: |
     $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
