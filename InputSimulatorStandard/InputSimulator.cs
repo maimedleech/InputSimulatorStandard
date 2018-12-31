@@ -1,5 +1,7 @@
 ﻿namespace InputSimulatorStandard
 {
+    using System;
+
     /// <inheritdoc />
     /// <summary>
     /// Implements the <see cref="IInputSimulator" /> interface to simulate Keyboard and Mouse input and provide the state of those input devices.
@@ -14,9 +16,9 @@
         /// <param name="inputDeviceStateAdapter">The <see cref="IInputDeviceStateAdapter"/> instance to use for interpreting the state of input devices.</param>
         public InputSimulator(IKeyboardSimulator keyboardSimulator, IMouseSimulator mouseSimulator, IInputDeviceStateAdapter inputDeviceStateAdapter)
         {
-            this.Keyboard = keyboardSimulator;
-            this.Mouse = mouseSimulator;
-            this.InputDeviceState = inputDeviceStateAdapter;
+            this.Keyboard = keyboardSimulator ?? throw new ArgumentNullException(nameof(keyboardSimulator));
+            this.Mouse = mouseSimulator ?? throw new ArgumentNullException(nameof(mouseSimulator));
+            this.InputDeviceState = inputDeviceStateAdapter ?? throw new ArgumentNullException(nameof(inputDeviceStateAdapter));
         }
 
         /// <summary>
