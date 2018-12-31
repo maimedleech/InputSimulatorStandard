@@ -50,7 +50,10 @@ steps:
     foreach ($testAssembly in $testAssemblies) {
       try {
         $assemblyDirectory = $testAssembly.Directory.FullName
-        Push-Location -Path $(Join-Path -Path $assemblyDirectory -ChildPath "..\..\..")
+        Write-Output "Assembly directory is $assemblyDirectory"
+        $workingDirectory = Join-Path -Path $assemblyDirectory -ChildPath "..\..\.."
+        Write-Output "Working directory is $workingDirectory"
+        Push-Location -Path $workingDirectory
         altcover -i $assemblyDirectory --opencover -e "xunit|$testAssembliesFilter"
       }
       finally {
