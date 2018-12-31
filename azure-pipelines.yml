@@ -41,7 +41,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --no-build'
 
 - powershell: |
     [array]$testAssemblies = Get-ChildItem -Recurse -File -Filter "*.Tests.dll" | Where-Object -Property Directory -Like "*\bin\*"
@@ -51,7 +51,7 @@ steps:
         $assemblyDirectory = $testAssembly.Directory.FullName
         $workingDirectory = Join-Path -Path $assemblyDirectory -ChildPath "..\..\.."
         Push-Location -Path $workingDirectory
-        altcover -i $assemblyDirectory --opencover -e "xunit|$testAssembliesFilter"
+        altcover -i "$assemblyDirectory" --opencover -e "xunit|$testAssembliesFilter"
       }
       finally {
         Pop-Location
@@ -61,5 +61,13 @@ steps:
 
 - powershell: |
     $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
-    & "$ENV:USERPROFILE\.nuget\packages\codecov\1.1.0\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
+    $fullPath = $coverageFile.FullName
+    Copy-Item -Path $fullPath -Destination '$(Build.StagingDirectory)'
+    & "$ENV:USERPROFILE\.nuget\packages\codecov\1.1.0\tools\codecov.exe" -f "$fullPath" -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
+
+  steps:
+- task: PublishPipelineArtifact@0
+  inputs:
+    artifactName: 'coverage.xml'
+    targetPath: '$(Build.StagingDirectory)\coverage.xml'
