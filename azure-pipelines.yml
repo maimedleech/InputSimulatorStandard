@@ -13,6 +13,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
 
 steps:
 #- task: NuGetToolInstaller@0
@@ -45,7 +46,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit"'
+    arguments: '--configuration $(buildConfiguration) --no-build /p:AltCover=true p:/AltCoverForce=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit"'
 
 - powershell: |
     $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
