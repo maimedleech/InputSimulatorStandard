@@ -44,5 +44,35 @@
                 });
             }
         }
+
+        public class KeyboardProperty : InputSimulatorTests
+        {
+            [Fact]
+            public void IsNotNull()
+            {
+                var result = this.inputSimulator.Keyboard;
+                Assert.IsAssignableFrom<IKeyboardSimulator>(result);
+            }
+        }
+
+        public class MouseProperty : InputSimulatorTests
+        {
+            [Fact]
+            public void IsNotNull()
+            {
+                var result = this.inputSimulator.Mouse;
+                Assert.IsAssignableFrom<IMouseSimulator>(result);
+            }
+        }
+
+        public class InputDeviceStateProperty : InputSimulatorTests
+        {
+            [Fact]
+            public void IsNotNull()
+            {
+                var result = this.inputSimulator.InputDeviceState;
+                Assert.IsAssignableFrom<IInputDeviceStateAdapter>(result);
+            }
+        }
     }
 }
