@@ -9,6 +9,14 @@
     public class InputSimulator : IInputSimulator
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="InputSimulator"/> class using the default <see cref="KeyboardSimulator"/>, <see cref="MouseSimulator"/> and <see cref="WindowsInputDeviceStateAdapter"/> instances.
+        /// </summary>
+        public InputSimulator()
+            : this(new KeyboardSimulator(), new MouseSimulator(), new WindowsInputDeviceStateAdapter())
+        {
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="InputSimulator"/> class using the specified <see cref="IKeyboardSimulator"/>, <see cref="IMouseSimulator"/> and <see cref="IInputDeviceStateAdapter"/> instances.
         /// </summary>
         /// <param name="keyboardSimulator">The <see cref="IKeyboardSimulator"/> instance to use for simulating keyboard input.</param>
@@ -19,14 +27,6 @@
             this.Keyboard = keyboardSimulator ?? throw new ArgumentNullException(nameof(keyboardSimulator));
             this.Mouse = mouseSimulator ?? throw new ArgumentNullException(nameof(mouseSimulator));
             this.InputDeviceState = inputDeviceStateAdapter ?? throw new ArgumentNullException(nameof(inputDeviceStateAdapter));
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InputSimulator"/> class using the default <see cref="KeyboardSimulator"/>, <see cref="MouseSimulator"/> and <see cref="WindowsInputDeviceStateAdapter"/> instances.
-        /// </summary>
-        public InputSimulator()
-            : this(new KeyboardSimulator(), new MouseSimulator(), new WindowsInputDeviceStateAdapter())
-        {
         }
 
         /// <inheritdoc />

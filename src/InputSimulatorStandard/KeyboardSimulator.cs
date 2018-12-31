@@ -151,7 +151,11 @@
         /// <param name="text">The text to be simulated.</param>
         public IKeyboardSimulator TextEntry(string text)
         {
-            if (text.Length > uint.MaxValue / 2) throw new ArgumentException($"The text parameter is too long. It must be less than {uint.MaxValue / 2} characters.", nameof(text));
+            if (text.Length > uint.MaxValue / 2)
+            {
+                throw new ArgumentException($"The text parameter is too long. It must be less than {uint.MaxValue / 2} characters.", nameof(text));
+            }
+
             var inputList = new InputBuilder().AddCharacters(text).ToArray();
             this.SendSimulatedInput(inputList);
             return this;
