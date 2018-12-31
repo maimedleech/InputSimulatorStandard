@@ -41,7 +41,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-build'
+    arguments: '--configuration $(buildConfiguration)'
 
 - powershell: |
     [array]$testAssemblies = Get-ChildItem -Recurse -File -Filter "*.Tests.dll" | Where-Object -Property Directory -Like "*\bin\*"
