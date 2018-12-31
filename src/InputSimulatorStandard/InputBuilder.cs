@@ -323,6 +323,7 @@
             var buttonDown = new Input { Type = (uint)InputType.Mouse };
             buttonDown.Data.Mouse.Flags = (uint)MouseFlag.XDown;
             buttonDown.Data.Mouse.MouseData = (uint)xButtonId;
+
             this.inputList.Add(buttonDown);
 
             return this;
@@ -337,6 +338,7 @@
         {
             var buttonUp = new Input { Type = (uint)InputType.Mouse };
             buttonUp.Data.Mouse.Flags = (uint)ToMouseButtonUpFlag(button);
+
             this.inputList.Add(buttonUp);
 
             return this;
@@ -352,6 +354,7 @@
             var buttonUp = new Input { Type = (uint)InputType.Mouse };
             buttonUp.Data.Mouse.Flags = (uint)MouseFlag.XUp;
             buttonUp.Data.Mouse.MouseData = (uint)xButtonId;
+
             this.inputList.Add(buttonUp);
 
             return this;

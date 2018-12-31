@@ -24,9 +24,8 @@
         /// </summary>
         /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
         public KeyboardSimulator(IInputSimulator inputSimulator)
+            : this(inputSimulator, new WindowsInputMessageDispatcher())
         {
-            this.inputSimulator = inputSimulator ?? throw new ArgumentNullException(nameof(inputSimulator));
-            this.messageDispatcher = new WindowsInputMessageDispatcher();
         }
 
         /// <summary>
