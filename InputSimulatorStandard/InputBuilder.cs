@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
-using InputSimulatorStandard.Native;
-
-namespace InputSimulatorStandard
+﻿namespace InputSimulatorStandard
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Native;
+
     /// <inheritdoc />
     /// <summary>
     /// A helper class for building a list of <see cref="Input" /> messages ready to be sent to the native Windows API.
@@ -16,6 +17,28 @@ namespace InputSimulatorStandard
         /// The public list of <see cref="Input"/> messages being built by this instance.
         /// </summary>
         private readonly List<Input> inputList;
+
+        private static readonly IReadOnlyList<VirtualKeyCode> ExtendedKeys = new List<VirtualKeyCode>
+        {
+            VirtualKeyCode.MENU,
+            VirtualKeyCode.RMENU,
+            VirtualKeyCode.CONTROL,
+            VirtualKeyCode.RCONTROL,
+            VirtualKeyCode.INSERT,
+            VirtualKeyCode.DELETE,
+            VirtualKeyCode.HOME,
+            VirtualKeyCode.END,
+            VirtualKeyCode.PRIOR,
+            VirtualKeyCode.NEXT,
+            VirtualKeyCode.RIGHT,
+            VirtualKeyCode.UP,
+            VirtualKeyCode.LEFT,
+            VirtualKeyCode.DOWN,
+            VirtualKeyCode.NUMLOCK,
+            VirtualKeyCode.CANCEL,
+            VirtualKeyCode.SNAPSHOT,
+            VirtualKeyCode.DIVIDE
+        };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InputBuilder"/> class.
@@ -29,10 +52,7 @@ namespace InputSimulatorStandard
         /// Returns the list of <see cref="Input"/> messages as a <see cref="Array"/> of <see cref="Input"/> messages.
         /// </summary>
         /// <returns>The <see cref="System.Array"/> of <see cref="Input"/> messages.</returns>
-        public Input[] ToArray()
-        {
-            return this.inputList.ToArray();
-        }
+        public Input[] ToArray() => this.inputList.ToArray();
 
         /// <inheritdoc />
         /// <summary>
@@ -42,10 +62,7 @@ namespace InputSimulatorStandard
         /// A <see cref="IEnumerator" /> that can be used to iterate through the list of <see cref="Input" /> messages.
         /// </returns>
         /// <filterpriority>1</filterpriority>
-        public IEnumerator<Input> GetEnumerator()
-        {
-            return this.inputList.GetEnumerator();
-        }
+        public IEnumerator<Input> GetEnumerator() => this.inputList.GetEnumerator();
 
         /// <inheritdoc />
         /// <summary>
@@ -55,10 +72,7 @@ namespace InputSimulatorStandard
         /// An <see cref="IEnumerator" /> object that can be used to iterate through the list of <see cref="Input" /> messages.
         /// </returns>
         /// <filterpriority>2</filterpriority>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         /// <summary>
         /// Gets the <see cref="Input"/> at the specified position.
@@ -76,27 +90,7 @@ namespace InputSimulatorStandard
         /// 
         /// See http://msdn.microsoft.com/en-us/library/ms646267(v=vs.85).aspx Section "Extended-Key Flag"
         /// </remarks>
-        public static bool IsExtendedKey(VirtualKeyCode keyCode)
-        {
-            return keyCode == VirtualKeyCode.MENU ||
-                   keyCode == VirtualKeyCode.RMENU ||
-                   keyCode == VirtualKeyCode.CONTROL ||
-                   keyCode == VirtualKeyCode.RCONTROL ||
-                   keyCode == VirtualKeyCode.INSERT ||
-                   keyCode == VirtualKeyCode.DELETE ||
-                   keyCode == VirtualKeyCode.HOME ||
-                   keyCode == VirtualKeyCode.END ||
-                   keyCode == VirtualKeyCode.PRIOR ||
-                   keyCode == VirtualKeyCode.NEXT ||
-                   keyCode == VirtualKeyCode.RIGHT ||
-                   keyCode == VirtualKeyCode.UP ||
-                   keyCode == VirtualKeyCode.LEFT ||
-                   keyCode == VirtualKeyCode.DOWN ||
-                   keyCode == VirtualKeyCode.NUMLOCK ||
-                   keyCode == VirtualKeyCode.CANCEL ||
-                   keyCode == VirtualKeyCode.SNAPSHOT ||
-                   keyCode == VirtualKeyCode.DIVIDE;
-        }
+        public static bool IsExtendedKey(VirtualKeyCode keyCode) => ExtendedKeys.Contains(keyCode);
 
         /// <summary>
         /// Adds a key down to the list of <see cref="Input"/> messages.
@@ -239,6 +233,7 @@ namespace InputSimulatorStandard
             {
                 this.AddCharacter(character);
             }
+
             return this;
         }
 
@@ -247,10 +242,7 @@ namespace InputSimulatorStandard
         /// </summary>
         /// <param name="characters">The string of <see cref="char"/> to add.</param>
         /// <returns>This <see cref="InputBuilder"/> instance.</returns>
-        public InputBuilder AddCharacters(string characters)
-        {
-            return this.AddCharacters(characters.ToCharArray());
-        }
+        public InputBuilder AddCharacters(string characters) => this.AddCharacters(characters.ToCharArray());
 
         /// <summary>
         /// Moves the mouse relative to its current position.
@@ -370,40 +362,28 @@ namespace InputSimulatorStandard
         /// </summary>
         /// <param name="button"></param>
         /// <returns>This <see cref="InputBuilder"/> instance.</returns>
-        public InputBuilder AddMouseButtonClick(MouseButton button)
-        {
-            return this.AddMouseButtonDown(button).AddMouseButtonUp(button);
-        }
+        public InputBuilder AddMouseButtonClick(MouseButton button) => this.AddMouseButtonDown(button).AddMouseButtonUp(button);
 
         /// <summary>
         /// Adds a single click of the specified button.
         /// </summary>
         /// <param name="xButtonId"></param>
         /// <returns>This <see cref="InputBuilder"/> instance.</returns>
-        public InputBuilder AddMouseXButtonClick(int xButtonId)
-        {
-            return this.AddMouseXButtonDown(xButtonId).AddMouseXButtonUp(xButtonId);
-        }
+        public InputBuilder AddMouseXButtonClick(int xButtonId) => this.AddMouseXButtonDown(xButtonId).AddMouseXButtonUp(xButtonId);
 
         /// <summary>
         /// Adds a double click of the specified button.
         /// </summary>
         /// <param name="button"></param>
         /// <returns>This <see cref="InputBuilder"/> instance.</returns>
-        public InputBuilder AddMouseButtonDoubleClick(MouseButton button)
-        {
-            return this.AddMouseButtonClick(button).AddMouseButtonClick(button);
-        }
+        public InputBuilder AddMouseButtonDoubleClick(MouseButton button) => this.AddMouseButtonClick(button).AddMouseButtonClick(button);
 
         /// <summary>
         /// Adds a double click of the specified button.
         /// </summary>
         /// <param name="xButtonId"></param>
         /// <returns>This <see cref="InputBuilder"/> instance.</returns>
-        public InputBuilder AddMouseXButtonDoubleClick(int xButtonId)
-        {
-            return this.AddMouseXButtonClick(xButtonId).AddMouseXButtonClick(xButtonId);
-        }
+        public InputBuilder AddMouseXButtonDoubleClick(int xButtonId) => this.AddMouseXButtonClick(xButtonId).AddMouseXButtonClick(xButtonId);
 
         /// <summary>
         /// Scroll the vertical mouse wheel by the specified amount.
