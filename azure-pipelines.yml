@@ -69,4 +69,4 @@ steps:
 - task: PublishPipelineArtifact@0
   inputs:
     artifactName: 'coverage.xml'
-    targetPath: '$(Build.StagingDirectory)\coverage.xml'
+    targetPath: '$(Build.StagingDirectory)'
