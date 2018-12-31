@@ -57,7 +57,7 @@ steps:
         Pop-Location
       }
     }
-  displayName: 'Run tests with coverage'
+  displayName: 'Create coverage report'
 
 - powershell: |
     $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
