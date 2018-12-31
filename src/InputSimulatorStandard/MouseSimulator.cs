@@ -107,133 +107,73 @@
         /// <summary>
         /// Simulates a mouse left button down gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonDown()
-        {
-            var inputList = new InputBuilder().AddMouseButtonDown(MouseButton.LeftButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator LeftButtonDown() => this.ButtonDown(MouseButton.LeftButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse left button up gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonUp()
-        {
-            var inputList = new InputBuilder().AddMouseButtonUp(MouseButton.LeftButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator LeftButtonUp() => this.ButtonUp(MouseButton.LeftButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse left-click gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonClick()
-        {
-            var inputList = new InputBuilder().AddMouseButtonClick(MouseButton.LeftButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator LeftButtonClick() => this.ButtonClick(MouseButton.LeftButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse left button double-click gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonDoubleClick()
-        {
-            var inputList = new InputBuilder().AddMouseButtonDoubleClick(MouseButton.LeftButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator LeftButtonDoubleClick() => this.ButtonDoubleClick(MouseButton.LeftButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse middle button down gesture.
         /// </summary>
-        public IMouseSimulator MiddleButtonDown()
-        {
-            var inputList = new InputBuilder().AddMouseButtonDown(MouseButton.MiddleButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator MiddleButtonDown() => this.ButtonDown(MouseButton.MiddleButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse middle button up gesture.
         /// </summary>
-        public IMouseSimulator MiddleButtonUp()
-        {
-            var inputList = new InputBuilder().AddMouseButtonUp(MouseButton.MiddleButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator MiddleButtonUp() => this.ButtonUp(MouseButton.MiddleButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse middle button click gesture.
         /// </summary>
-        public IMouseSimulator MiddleButtonClick()
-        {
-            var inputList = new InputBuilder().AddMouseButtonClick(MouseButton.MiddleButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator MiddleButtonClick() => this.ButtonClick(MouseButton.MiddleButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse middle button double click gesture.
         /// </summary>
-        public IMouseSimulator MiddleButtonDoubleClick()
-        {
-            var inputList = new InputBuilder().AddMouseButtonDoubleClick(MouseButton.MiddleButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator MiddleButtonDoubleClick() => this.ButtonDoubleClick(MouseButton.MiddleButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse right button down gesture.
         /// </summary>
-        public IMouseSimulator RightButtonDown()
-        {
-            var inputList = new InputBuilder().AddMouseButtonDown(MouseButton.RightButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator RightButtonDown() => this.ButtonDown(MouseButton.RightButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse right button up gesture.
         /// </summary>
-        public IMouseSimulator RightButtonUp()
-        {
-            var inputList = new InputBuilder().AddMouseButtonUp(MouseButton.RightButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator RightButtonUp() => this.ButtonUp(MouseButton.RightButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse right button click gesture.
         /// </summary>
-        public IMouseSimulator RightButtonClick()
-        {
-            var inputList = new InputBuilder().AddMouseButtonClick(MouseButton.RightButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator RightButtonClick() => this.ButtonClick(MouseButton.RightButton);
 
         /// <inheritdoc />
         /// <summary>
         /// Simulates a mouse right button double-click gesture.
         /// </summary>
-        public IMouseSimulator RightButtonDoubleClick()
-        {
-            var inputList = new InputBuilder().AddMouseButtonDoubleClick(MouseButton.RightButton).ToArray();
-            this.SendSimulatedInput(inputList);
-            return this;
-        }
+        public IMouseSimulator RightButtonDoubleClick() => this.ButtonDoubleClick(MouseButton.RightButton);
 
         /// <inheritdoc />
         /// <summary>
@@ -326,6 +266,34 @@
         public IMouseSimulator Sleep(TimeSpan timeout)
         {
             Thread.Sleep(timeout);
+            return this;
+        }
+
+        private IMouseSimulator ButtonDown(MouseButton mouseButton)
+        {
+            var inputList = new InputBuilder().AddMouseButtonDown(mouseButton).ToArray();
+            this.SendSimulatedInput(inputList);
+            return this;
+        }
+
+        private IMouseSimulator ButtonUp(MouseButton mouseButton)
+        {
+            var inputList = new InputBuilder().AddMouseButtonUp(mouseButton).ToArray();
+            this.SendSimulatedInput(inputList);
+            return this;
+        }
+
+        private IMouseSimulator ButtonClick(MouseButton mouseButton)
+        {
+            var inputList = new InputBuilder().AddMouseButtonClick(mouseButton).ToArray();
+            this.SendSimulatedInput(inputList);
+            return this;
+        }
+
+        private IMouseSimulator ButtonDoubleClick(MouseButton mouseButton)
+        {
+            var inputList = new InputBuilder().AddMouseButtonDoubleClick(mouseButton).ToArray();
+            this.SendSimulatedInput(inputList);
             return this;
         }
     }
