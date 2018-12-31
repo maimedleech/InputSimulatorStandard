@@ -36,7 +36,8 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - powershell: |
-    $testAssemblies = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter '*.Tests.csproj' | Select-Object -ExpandProperty BaseName
+    $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
+    $testAssemblies = Get-ChildItem -Path "$testsDirectory" -Recurse -File -Filter '*.Tests.csproj' | Select-Object -ExpandProperty BaseName
     Write-Output "##vso[task.setvariable variable=testAssemblies]$($testAssemblies -join '|')"
   displayName: 'Set test assembly filter variable'
 
@@ -44,10 +45,11 @@ steps:
   displayName: 'Run tests with coverage'
   inputs:
     command: test
-    projects: '**/*.Tests.csproj'
+    projects: 'tests/**/*.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
 
 - powershell: |
-    $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
+    $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
+    $coverageFile = Get-ChildItem -Path "$testsDirectory" -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
     & "$ENV:USERPROFILE\.nuget\packages\codecov\1.1.0\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
