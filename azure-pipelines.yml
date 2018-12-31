@@ -50,7 +50,7 @@ steps:
 
 - powershell: |
     $coverageFile = Get-ChildItem -Path '$(Build.SourcesDirectory)' -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
-    %USERPROFILE%\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '$($coverageFile.FullName)' -t '$(CODECOV_TOKEN)'
+    $ENV:USERPROFILE\.nuget\packages\codecov\1.1.0\tools\codecov.exe -f '$($coverageFile.FullName)' -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
 
 # - task: VSBuild@1
