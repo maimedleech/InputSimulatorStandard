@@ -19,10 +19,11 @@
         /// </summary>
         private readonly IInputMessageDispatcher messageDispatcher;
 
+        /// <inheritdoc />
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyboardSimulator"/> class using an instance of a <see cref="WindowsInputMessageDispatcher"/> for dispatching <see cref="Input"/> messages.
+        /// Initializes a new instance of the <see cref="T:InputSimulatorStandard.KeyboardSimulator" /> class using an instance of a <see cref="T:InputSimulatorStandard.WindowsInputMessageDispatcher" /> for dispatching <see cref="T:InputSimulatorStandard.Native.Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
+        /// <param name="inputSimulator">The <see cref="T:InputSimulatorStandard.IInputSimulator" /> that owns this instance.</param>
         public KeyboardSimulator(IInputSimulator inputSimulator)
             : this(inputSimulator, new WindowsInputMessageDispatcher())
         {
@@ -48,56 +49,6 @@
         /// </summary>
         /// <value>The <see cref="IMouseSimulator" /> instance.</value>
         public IMouseSimulator Mouse => this.inputSimulator.Mouse;
-
-        private void ModifiersDown(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
-        {
-            if (modifierKeyCodes == null)
-            {
-                return;
-            }
-
-            foreach (var key in modifierKeyCodes)
-            {
-                builder.AddKeyDown(key);
-            }
-        }
-
-        private void ModifiersUp(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
-        {
-            if (modifierKeyCodes == null)
-            {
-                return;
-            }
-
-            // Key up in reverse (I miss LINQ)
-            var stack = new Stack<VirtualKeyCode>(modifierKeyCodes);
-            while (stack.Count > 0)
-            {
-                builder.AddKeyUp(stack.Pop());
-            }
-        }
-
-        private void KeysPress(InputBuilder builder, IEnumerable<VirtualKeyCode> keyCodes)
-        {
-            if (keyCodes == null)
-            {
-                return;
-            }
-
-            foreach (var key in keyCodes)
-            {
-                builder.AddKeyPress(key);
-            }
-        }
-
-        /// <summary>
-        /// Sends the list of <see cref="Input"/> messages using the <see cref="IInputMessageDispatcher"/> instance.
-        /// </summary>
-        /// <param name="inputList">The <see cref="Array"/> of <see cref="Input"/> messages to send.</param>
-        private void SendSimulatedInput(Input[] inputList)
-        {
-            this.messageDispatcher.DispatchInput(inputList);
-        }
 
         /// <inheritdoc />
         /// <summary>
@@ -250,6 +201,56 @@
         {
             Thread.Sleep(timeout);
             return this;
+        }
+
+        private void ModifiersDown(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
+        {
+            if (modifierKeyCodes == null)
+            {
+                return;
+            }
+
+            foreach (var key in modifierKeyCodes)
+            {
+                builder.AddKeyDown(key);
+            }
+        }
+
+        private void ModifiersUp(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
+        {
+            if (modifierKeyCodes == null)
+            {
+                return;
+            }
+
+            // Key up in reverse (I miss LINQ)
+            var stack = new Stack<VirtualKeyCode>(modifierKeyCodes);
+            while (stack.Count > 0)
+            {
+                builder.AddKeyUp(stack.Pop());
+            }
+        }
+
+        private void KeysPress(InputBuilder builder, IEnumerable<VirtualKeyCode> keyCodes)
+        {
+            if (keyCodes == null)
+            {
+                return;
+            }
+
+            foreach (var key in keyCodes)
+            {
+                builder.AddKeyPress(key);
+            }
+        }
+
+        /// <summary>
+        /// Sends the list of <see cref="Input"/> messages using the <see cref="IInputMessageDispatcher"/> instance.
+        /// </summary>
+        /// <param name="inputList">The <see cref="Array"/> of <see cref="Input"/> messages to send.</param>
+        private void SendSimulatedInput(Input[] inputList)
+        {
+            this.messageDispatcher.DispatchInput(inputList);
         }
     }
 }
