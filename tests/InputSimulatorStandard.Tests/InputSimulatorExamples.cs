@@ -30,7 +30,7 @@
                .ModifiedKeyStroke(VirtualKeyCode.MENU, VirtualKeyCode.SPACE)
                .KeyPress(VirtualKeyCode.DOWN)
                .KeyPress(VirtualKeyCode.RETURN);
-            
+
             var i = 10;
             while (i-- > 0)
             {
@@ -51,16 +51,15 @@
             sim.Keyboard.KeyPress(VirtualKeyCode.SPACE);
 
             sim.Keyboard.ModifiedKeyStroke(VirtualKeyCode.LWIN, VirtualKeyCode.VK_R)
-               .Sleep(1000)
-               .TextEntry("mspaint")
-               .Sleep(1000)
-               .KeyPress(VirtualKeyCode.RETURN)
-               .Sleep(1000)
-               .Mouse
-               .LeftButtonDown()
-               .MoveMouseToPositionOnVirtualDesktop(65535/2, 65535/2)
-               .LeftButtonUp();
-
+                .Sleep(1000)
+                .TextEntry("mspaint")
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.RETURN)
+                .Sleep(1000);
+            sim.Mouse
+                .LeftButtonDown()
+                .MoveMouseToPositionOnVirtualDesktop(65535 / 2, 65535 / 2)
+                .LeftButtonUp();
         }
 
         [Fact]
@@ -72,7 +71,7 @@
                .Sleep(1000)
                .MoveMouseTo(65535, 65535)
                .Sleep(1000)
-               .MoveMouseTo(65535/2, 65535/2);
+               .MoveMouseTo(65535 / 2, 65535 / 2);
         }
     }
 }

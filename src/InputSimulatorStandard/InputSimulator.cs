@@ -25,10 +25,8 @@
         /// Initializes a new instance of the <see cref="InputSimulator"/> class using the default <see cref="KeyboardSimulator"/>, <see cref="MouseSimulator"/> and <see cref="WindowsInputDeviceStateAdapter"/> instances.
         /// </summary>
         public InputSimulator()
+            : this(new KeyboardSimulator(), new MouseSimulator(), new WindowsInputDeviceStateAdapter())
         {
-            this.Keyboard = new KeyboardSimulator(this);
-            this.Mouse = new MouseSimulator(this);
-            this.InputDeviceState = new WindowsInputDeviceStateAdapter();
         }
 
         /// <inheritdoc />

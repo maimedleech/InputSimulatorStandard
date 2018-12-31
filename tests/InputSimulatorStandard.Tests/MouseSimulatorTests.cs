@@ -12,21 +12,15 @@
 
         public MouseSimulatorTests()
         {
-            this.mouseSimulator = new MouseSimulator(Mock.Of<IInputSimulator>(), Mock.Of<IInputMessageDispatcher>());
+            this.mouseSimulator = new MouseSimulator(Mock.Of<IInputMessageDispatcher>());
         }
 
         public class Constructor : MouseSimulatorTests
         {
             [Fact]
-            public void NullInputSimulatorThrowsArgumentNullException()
-            {
-                Assert.Throws<ArgumentNullException>("inputSimulator", () => this.mouseSimulator = new MouseSimulator(null));
-            }
-
-            [Fact]
             public void NullMessageDispatcherThrowsInvalidOperationException()
             {
-                Assert.Throws<InvalidOperationException>(() => this.mouseSimulator = new MouseSimulator(Mock.Of<IInputSimulator>(), null));
+                Assert.Throws<InvalidOperationException>(() => this.mouseSimulator = new MouseSimulator(null));
             }
         }
     }

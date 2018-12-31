@@ -13,12 +13,6 @@
         int MouseWheelClickSize { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="IKeyboardSimulator"/> instance for simulating Keyboard input.
-        /// </summary>
-        /// <value>The <see cref="IKeyboardSimulator"/> instance.</value>
-        IKeyboardSimulator Keyboard { get; }
-
-        /// <summary>
         /// Simulates mouse movement by the specified distance measured as a delta from the current mouse location in pixels.
         /// </summary>
         /// <param name="pixelDeltaX">The distance in pixels to move the mouse horizontally.</param>

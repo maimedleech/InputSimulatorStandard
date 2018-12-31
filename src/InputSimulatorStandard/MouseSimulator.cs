@@ -11,8 +11,6 @@
     /// </summary>
     public class MouseSimulator : IMouseSimulator
     {
-        private readonly IInputSimulator inputSimulator;
-
         /// <summary>
         /// The instance of the <see cref="IInputMessageDispatcher"/> to use for dispatching <see cref="Input"/> messages.
         /// </summary>
@@ -22,21 +20,18 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:InputSimulatorStandard.MouseSimulator" /> class using an instance of a <see cref="T:InputSimulatorStandard.WindowsInputMessageDispatcher" /> for dispatching <see cref="T:InputSimulatorStandard.Native.Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="T:InputSimulatorStandard.IInputSimulator" /> that owns this instance.</param>
-        public MouseSimulator(IInputSimulator inputSimulator)
-            : this(inputSimulator, new WindowsInputMessageDispatcher())
+        public MouseSimulator()
+            : this(new WindowsInputMessageDispatcher())
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MouseSimulator"/> class using the specified <see cref="IInputMessageDispatcher"/> for dispatching <see cref="Input"/> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
         /// <param name="messageDispatcher">The <see cref="IInputMessageDispatcher"/> to use for dispatching <see cref="Input"/> messages.</param>
         /// <exception cref="InvalidOperationException">If null is passed as the <paramref name="messageDispatcher"/>.</exception>
-        internal MouseSimulator(IInputSimulator inputSimulator, IInputMessageDispatcher messageDispatcher)
+        internal MouseSimulator(IInputMessageDispatcher messageDispatcher)
         {
-            this.inputSimulator = inputSimulator ?? throw new ArgumentNullException(nameof(inputSimulator));
             this.messageDispatcher = messageDispatcher ?? throw new InvalidOperationException(
                                          string.Format("The {0} cannot operate with a null {1}. Please provide a valid {1} instance to use for dispatching {2} messages.",
                                              typeof(MouseSimulator).Name, typeof(IInputMessageDispatcher).Name, typeof(Input).Name));
@@ -47,13 +42,6 @@
         /// Gets or sets the amount of mouse wheel scrolling per click. The default value for this property is 120 and different values may cause some applications to interpret the scrolling differently than expected.
         /// </summary>
         public int MouseWheelClickSize { get; set; } = 120;
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Gets the <see cref="IKeyboardSimulator" /> instance for simulating Keyboard input.
-        /// </summary>
-        /// <value>The <see cref="IKeyboardSimulator" /> instance.</value>
-        public IKeyboardSimulator Keyboard => this.inputSimulator.Keyboard;
 
         /// <inheritdoc />
         /// <summary>

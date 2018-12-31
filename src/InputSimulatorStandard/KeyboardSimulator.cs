@@ -12,8 +12,6 @@
     /// </summary>
     public class KeyboardSimulator : IKeyboardSimulator
     {
-        private readonly IInputSimulator inputSimulator;
-
         /// <summary>
         /// The instance of the <see cref="IInputMessageDispatcher"/> to use for dispatching <see cref="Input"/> messages.
         /// </summary>
@@ -23,32 +21,22 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:InputSimulatorStandard.KeyboardSimulator" /> class using an instance of a <see cref="T:InputSimulatorStandard.WindowsInputMessageDispatcher" /> for dispatching <see cref="T:InputSimulatorStandard.Native.Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="T:InputSimulatorStandard.IInputSimulator" /> that owns this instance.</param>
-        public KeyboardSimulator(IInputSimulator inputSimulator)
-            : this(inputSimulator, new WindowsInputMessageDispatcher())
+        public KeyboardSimulator()
+            : this(new WindowsInputMessageDispatcher())
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="KeyboardSimulator"/> class using the specified <see cref="IInputMessageDispatcher"/> for dispatching <see cref="Input"/> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
         /// <param name="messageDispatcher">The <see cref="IInputMessageDispatcher"/> to use for dispatching <see cref="Input"/> messages.</param>
         /// <exception cref="InvalidOperationException">If null is passed as the <paramref name="messageDispatcher"/>.</exception>
-        internal KeyboardSimulator(IInputSimulator inputSimulator, IInputMessageDispatcher messageDispatcher)
+        internal KeyboardSimulator(IInputMessageDispatcher messageDispatcher)
         {
-            this.inputSimulator = inputSimulator ?? throw new ArgumentNullException(nameof(inputSimulator));
             this.messageDispatcher = messageDispatcher ?? throw new InvalidOperationException(
                                          string.Format("The {0} cannot operate with a null {1}. Please provide a valid {1} instance to use for dispatching {2} messages.",
                                              typeof(KeyboardSimulator).Name, typeof(IInputMessageDispatcher).Name, typeof(Input).Name));
         }
-
-        /// <inheritdoc />
-        /// <summary>
-        /// Gets the <see cref="IMouseSimulator" /> instance for simulating Mouse input.
-        /// </summary>
-        /// <value>The <see cref="IMouseSimulator" /> instance.</value>
-        public IMouseSimulator Mouse => this.inputSimulator.Mouse;
 
         /// <inheritdoc />
         /// <summary>
