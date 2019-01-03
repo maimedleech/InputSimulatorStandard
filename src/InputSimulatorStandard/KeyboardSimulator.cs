@@ -180,8 +180,7 @@
         /// <param name="millisecondsTimeout">The number of milliseconds to wait.</param>
         public IKeyboardSimulator Sleep(int millisecondsTimeout)
         {
-            Thread.Sleep(millisecondsTimeout);
-            return this;
+            return this.Sleep(TimeSpan.FromMilliseconds(millisecondsTimeout));
         }
 
         /// <inheritdoc />
