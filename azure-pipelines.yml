@@ -64,9 +64,21 @@ steps:
   displayName: 'Pack projects'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Push *.nupkg to nuget.org'
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NuGet.org'
-  displayName: 'Upload *.nupkg and *.snupkg to nuget.org'
+    command: custom
+    custom: nuget
+    arguments: >
+      push $(Build.ArtifactStagingDirectory)/*.nupkg
+      -s $(NuGetSourceServerUrl)
+      -k $(NuGetSourceServerApiKey)
+
+- task: DotNetCoreCLI@2
+  displayName: 'Push *.snupkg to nuget.org'
+  inputs:
+    command: custom
+    custom: nuget
+    arguments: >
+      push $(Build.ArtifactStagingDirectory)/*.snupkg
+      -s $(NuGetSourceServerUrl)
+      -k $(NuGetSourceServerApiKey)
