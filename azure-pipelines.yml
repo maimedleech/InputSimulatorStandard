@@ -5,7 +5,7 @@
 # - master
 
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
@@ -16,10 +16,10 @@ variables:
 steps:
 - task: DotNetCoreInstaller@0
   inputs:
-    version: '2.2.101'
+    version: '2.x'
 
 - script: |
-    dotnet tool install -g GitVersion.Tool --version 4.0.1-beta1-58
+    dotnet tool install -g GitVersion.Tool --version 5.0.1-beta1.14
   displayName: 'Install global tools'
 
 - script: dotnet-gitversion /output buildserver
@@ -51,5 +51,5 @@ steps:
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
     $coverageFile = Get-ChildItem -Path "$testsDirectory" -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
-    & "$ENV:USERPROFILE\.nuget\packages\codecov\1.1.0\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
+    & "$ENV:USERPROFILE\.nuget\packages\codecov\1.7.1\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
