@@ -5,11 +5,16 @@
     <Title>Input Simulator Standard</Title>
     <Authors>Michael Noonan, Theodoros Chatzigiannakis, Gregor Sindl</Authors>
     <Copyright>Copyright 2009-2019</Copyright>
-    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/GregsStack/InputSimulatorStandard</PackageProjectUrl>
     <Description>This package is a fork of the Windows Input Simulator Plus package. If you have encountered applications that do not receive input from the original Windows Input Simulator, try replacing it with this package instead.</Description>
     <PackageTags>windows;input;keyboard;mouse</PackageTags>
     <RepositoryUrl>https://github.com/GregsStack/InputSimulatorStandard</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +31,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
