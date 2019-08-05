@@ -63,18 +63,10 @@ steps:
     versioningScheme: 'byBuildNumber'
   displayName: 'Pack projects'
 
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'NuGet.org'
-  displayName: 'Upload *.nupkg to nuget.org'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.snupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NuGet.org'
-  displayName: 'Upload *.snupkg to nuget.org'
+  displayName: 'Upload *.nupkg and *.snupkg to nuget.org'
