@@ -53,3 +53,28 @@ steps:
     $coverageFile = Get-ChildItem -Path "$testsDirectory" -Recurse -File -Filter 'coverage.xml' | Select-Object -First 1
     & "$ENV:USERPROFILE\.nuget\packages\codecov\1.7.1\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(solution)'
+    nobuild: true
+    includesymbols: true
+    versioningScheme: 'byBuildNumber'
+  displayName: 'Pack projects'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet.org'
+  displayName: 'Upload *.nupkg to nuget.org'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.snupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet.org'
+  displayName: 'Upload *.snupkg to nuget.org'
