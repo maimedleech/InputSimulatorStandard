@@ -16,7 +16,7 @@ variables:
 steps:
 - task: DotNetCoreInstaller@0
   inputs:
-    version: 'latest-sdk'
+    version: '2.2.401'
 
 - script: |
     dotnet tool install -g GitVersion.Tool --version 5.0.1-beta1.14
