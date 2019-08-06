@@ -36,8 +36,8 @@ steps:
 - script: dotnet-gitversion /output buildserver
   displayName: 'Run GitVersion.Tool'
 
-# - bash: printenv | sort
-#   displayName: 'List environment variables'
+- bash: printenv | sort
+  displayName: 'List environment variables'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build source'
