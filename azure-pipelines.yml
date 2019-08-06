@@ -102,8 +102,9 @@ steps:
     repositoryName: '$(Build.Repository.Name)'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tagSource: 'auto'
-    title: 'v$(Build.BuildNumber)'
+    tagSource: 'manual'
+    tag: '$(Build.BuildNumber)'
+    title: '$(Build.BuildNumber)'
 
 - task: GitHubRelease@0
   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
@@ -112,6 +113,7 @@ steps:
     repositoryName: '$(Build.Repository.Name)'
     action: 'create'
     target: '$(Build.SourceVersion)'
-    tagSource: 'auto'
-    title: 'v$(Build.BuildNumber)'
+    tagSource: 'manual'
+    tag: '$(Build.BuildNumber)'
+    title: '$(Build.BuildNumber)'
     isPreRelease: true
