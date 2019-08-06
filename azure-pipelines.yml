@@ -63,6 +63,11 @@ steps:
     includesymbols: true
     versioningScheme: 'byBuildNumber'
 
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '5.1.0'
+    checkLatest: true
+
 - task: NuGetCommand@2
   displayName: 'Push *.nupkg and *.snupkg to nuget.org'
   inputs:
