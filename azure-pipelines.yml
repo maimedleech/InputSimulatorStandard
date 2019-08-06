@@ -79,12 +79,6 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'GITVERSION_NUGETVERSIONV2'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-
 - task: NuGetToolInstaller@1
   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
   inputs:
