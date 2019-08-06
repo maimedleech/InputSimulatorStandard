@@ -5,9 +5,9 @@
   batch: true
   branches:
     include:
-    - master
-    - develop
-    - release/*
+      - master
+      - develop
+      - release/*
 
 pool:
   vmImage: 'windows-latest'
