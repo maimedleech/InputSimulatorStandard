@@ -1,4 +1,4 @@
-﻿namespace InputSimulatorStandard.Tests
+﻿namespace GregsStack.InputSimulatorStandard.Tests
 {
     using Native;
 

@@ -1,4 +1,4 @@
-﻿namespace InputSimulatorStandard
+﻿namespace GregsStack.InputSimulatorStandard
 {
     using System;
     using System.Threading;

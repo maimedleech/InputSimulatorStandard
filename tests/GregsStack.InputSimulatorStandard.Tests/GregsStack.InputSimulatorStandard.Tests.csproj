@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
-    <RootNamespace>InputSimulatorStandard.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

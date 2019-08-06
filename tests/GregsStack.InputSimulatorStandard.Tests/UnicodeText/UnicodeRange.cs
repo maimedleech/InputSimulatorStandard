@@ -1,4 +1,4 @@
-namespace InputSimulatorStandard.Tests.UnicodeText
+namespace GregsStack.InputSimulatorStandard.Tests.UnicodeText
 {
     using System.Text;
 

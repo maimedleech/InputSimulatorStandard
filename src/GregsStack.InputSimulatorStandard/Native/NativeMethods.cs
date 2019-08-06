@@ -1,4 +1,4 @@
-﻿namespace InputSimulatorStandard.Native
+﻿namespace GregsStack.InputSimulatorStandard.Native
 {
     using System;
     using System.Runtime.InteropServices;

@@ -1,4 +1,4 @@
-﻿namespace InputSimulatorStandard.Native
+﻿namespace GregsStack.InputSimulatorStandard.Native
 {
     /// <summary>
     /// The list of virtual key codes (see: http://msdn.microsoft.com/en-us/library/ms645540(VS.85).aspx)

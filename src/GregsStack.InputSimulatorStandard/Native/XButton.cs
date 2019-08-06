@@ -1,4 +1,4 @@
-﻿namespace InputSimulatorStandard.Native
+﻿namespace GregsStack.InputSimulatorStandard.Native
 {
     /// <summary>
     /// XButton definitions for use in the MouseData property of the <see cref="MouseInput"/> structure. (See: http://msdn.microsoft.com/en-us/library/ms646273(VS.85).aspx)

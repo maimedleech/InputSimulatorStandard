@@ -1,4 +1,4 @@
-﻿namespace InputSimulatorStandard.Native
+﻿namespace GregsStack.InputSimulatorStandard.Native
 {
     /// <summary>
     /// The <see cref="Input"/> structure is used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks. (see: http://msdn.microsoft.com/en-us/library/ms646270(VS.85).aspx)
