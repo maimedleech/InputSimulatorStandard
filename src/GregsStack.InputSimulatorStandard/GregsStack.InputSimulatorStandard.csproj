@@ -5,7 +5,7 @@
     <Title>Input Simulator Standard</Title>
     <Authors>Michael Noonan, Theodoros Chatzigiannakis, Gregor Sindl</Authors>
     <Copyright>Copyright 2009-2019</Copyright>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/GregsStack/InputSimulatorStandard</PackageProjectUrl>
     <Description>This package is a fork of the Windows Input Simulator Plus package. If you have encountered applications that do not receive input from the original Windows Input Simulator, try replacing it with this package instead.</Description>
@@ -15,6 +15,7 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <RootNamespace>InputSimulatorStandard</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\LICENSE">
+    <None Include="..\..\LICENSE.md">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

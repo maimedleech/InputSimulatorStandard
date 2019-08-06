@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
+    <RootNamespace>InputSimulatorStandard.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\InputSimulatorStandard\InputSimulatorStandard.csproj" />
+    <ProjectReference Include="..\..\src\GregsStack.InputSimulatorStandard\GregsStack.InputSimulatorStandard.csproj" />
   </ItemGroup>
 
   <ItemGroup>
