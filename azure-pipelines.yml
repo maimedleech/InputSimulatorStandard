@@ -36,6 +36,9 @@ steps:
 - script: dotnet-gitversion /output buildserver
   displayName: 'Run GitVersion.Tool'
 
+- powershell: Write-Output "##vso[task.setvariable variable=informationalVersion]$($env:GITVERSION_INFORMATIONALVERSION)"
+  displayName: 'Set assembly version variable'
+
 - bash: printenv | sort
   displayName: 'List environment variables'
 
@@ -44,9 +47,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(Solution)'
-    arguments: '-c $(BuildConfiguration)'
-    versioningScheme: byEnvVar
-    versionEnvVar: 'GITVERSION_INFORMATIONALVERSION'
+    arguments: '-c $(BuildConfiguration) /p:Version=$(informationalVersion)'
 
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
@@ -59,9 +60,7 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.Tests.csproj'
-    arguments: '-c $(BuildConfiguration) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
-    versioningScheme: byEnvVar
-    versionEnvVar: 'GITVERSION_INFORMATIONALVERSION'
+    arguments: '-c $(BuildConfiguration) /p:Version=$(informationalVersion) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
 
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
@@ -80,18 +79,24 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: 'GITVERSION_NUGETVERSIONV2'
 
-- task: NuGetToolInstaller@1
-  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
+- task: PublishBuildArtifacts@1
   inputs:
-    versionSpec: '5.1.0'
-    checkLatest: true
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
-- task: NuGetCommand@2
-  displayName: 'Push *.nupkg and *.snupkg to nuget.org'
-  condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NuGet.org'
-    allowPackageConflicts: true
+# - task: NuGetToolInstaller@1
+#   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
+#   inputs:
+#     versionSpec: '5.1.0'
+#     checkLatest: true
+
+# - task: NuGetCommand@2
+#   displayName: 'Push *.nupkg and *.snupkg to nuget.org'
+#   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+#     nuGetFeedType: 'external'
+#     publishFeedCredentials: 'NuGet.org'
+#     allowPackageConflicts: true
