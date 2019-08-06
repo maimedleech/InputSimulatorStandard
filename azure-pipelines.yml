@@ -1,13 +1,18 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
- trigger:
+trigger:
   batch: true
   branches:
     include:
       - master
       - develop
       - release/*
+  pr:
+    branches:
+      include:
+        - master
+        - release/*
 
 pool:
   vmImage: 'windows-latest'
