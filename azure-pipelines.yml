@@ -9,6 +9,12 @@ trigger:
       - develop
       - release/*
 
+pr:
+  branches:
+    include:
+      - master
+      - release/*
+
 pool:
   vmImage: 'windows-latest'
 
@@ -83,3 +89,4 @@ steps:
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'NuGet.org'
+    allowPackageConflicts: true
