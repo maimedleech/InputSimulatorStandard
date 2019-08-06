@@ -8,11 +8,6 @@
     - master
     - develop
     - release/*
-  pr:
-    branches:
-      include:
-      - master
-      - release/*
 
 pool:
   vmImage: 'windows-latest'
