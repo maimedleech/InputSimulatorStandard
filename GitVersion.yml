@@ -1,5 +1,7 @@
 branches:
   develop:
+    mode: ContinuousDeployment
     tag: beta
   release:
+    mode: ContinuousDeployment
     tag: rc
