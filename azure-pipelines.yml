@@ -9,6 +9,12 @@ trigger:
       - develop
       - release/*
 
+pr:
+  branches:
+    include:
+      - master
+      - release/*
+
 pool:
   vmImage: 'windows-latest'
 
@@ -80,6 +86,7 @@ steps:
   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'external'
     publishFeedCredentials: 'NuGet.org'
+    allowPackageConflicts: true
