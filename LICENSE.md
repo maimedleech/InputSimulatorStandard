@@ -1,6 +1,7 @@
 MIT License
 
-Copyright (c) 2019 Michael Noonan
+Original work Copyright (c) 2019 Michael Noonan
+Modified work Copyright (c) 2019 Theodoros Chatzigiannakis and Gregor Sindl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
