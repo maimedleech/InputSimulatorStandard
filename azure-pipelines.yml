@@ -29,11 +29,13 @@ steps:
 #   displayName: 'List environment variables'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build source'
+  displayName: 'Build and pack source'
   inputs:
-    command: build
-    projects: '$(solution)'
-    arguments: '--configuration $(buildConfiguration)'
+    command: 'pack'
+    packagesToPack: '$(solution)'
+    includesymbols: true
+    versioningScheme: 'byBuildNumber'
+    buildProperties: '--configuration $(buildConfiguration)'
 
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
@@ -54,38 +56,11 @@ steps:
     & "$ENV:USERPROFILE\.nuget\packages\codecov\1.7.1\tools\codecov.exe" -f "$($coverageFile.FullName)" -t '$(CODECOV_TOKEN)'
   displayName: 'Upload coverage to codecov.io'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Pack projects'
-  inputs:
-    command: 'pack'
-    packagesToPack: '$(solution)'
-    nobuild: true
-    includesymbols: true
-    versioningScheme: 'byBuildNumber'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   displayName: 'Push *.nupkg and *.snupkg to nuget.org'
   inputs:
-    command: 'custom'
-    custom: 'nuget'
-    arguments: 'push ''$(Build.ArtifactStagingDirectory)/*.nupkg'' -s $(NuGetSourceServerUrl) -k $(NuGetSourceServerApiKey)'
-
-# - task: NuGetToolInstaller@1
-#   inputs:
-#     versionSpec: '5.1.0'
-#     checkLatest: true
-
-# - task: NuGetCommand@2
-#   displayName: 'Push *.nupkg and *.snupkg to nuget.org'
-#   inputs:
-#     command: 'push'
-#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
-#     nuGetFeedType: 'external'
-#     publishFeedCredentials: 'NuGet.org'
-#     verbosityPush: 'Normal'
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'NuGet.org'
+    verbosityPush: 'Normal'
