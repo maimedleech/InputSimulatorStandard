@@ -44,7 +44,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(solution)'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) /p:Version=$(GITVERSION_INFORMATIONALVERSION)'
 
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
@@ -57,7 +57,7 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
+    arguments: '--configuration $(buildConfiguration) /p:Version=$(GITVERSION_INFORMATIONALVERSION) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
 
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
@@ -73,7 +73,8 @@ steps:
     packagesToPack: '$(solution)'
     nobuild: true
     includesymbols: true
-    versioningScheme: 'byBuildNumber'
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: 'GITVERSION_NUGETVERSIONV2'
 
 - task: NuGetToolInstaller@1
   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
