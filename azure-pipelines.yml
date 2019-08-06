@@ -19,9 +19,9 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  Solution: '**/*.sln'
+  BuildPlatform: 'Any CPU'
+  BuildConfiguration: 'Release'
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
 
 steps:
@@ -43,8 +43,9 @@ steps:
   displayName: 'Build source'
   inputs:
     command: 'build'
-    projects: '$(solution)'
-    arguments: '--configuration $(BuildConfiguration) /p:Version=$($ENV:GITVERSION_INFORMATIONALVERSION)'
+    projects: '$(Solution)'
+    versioningScheme: byEnvVar
+    versionEnvVar: 'GITVERSION_INFORMATIONALVERSION'
 
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
@@ -57,7 +58,9 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.Tests.csproj'
-    arguments: '--configuration $(BuildConfiguration) /p:Version=$($ENV:GITVERSION_INFORMATIONALVERSION) /p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
+    arguments: '/p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
+    versioningScheme: byEnvVar
+    versionEnvVar: 'GITVERSION_INFORMATIONALVERSION'
 
 - powershell: |
     $testsDirectory = Join-Path -Path '$(Build.SourcesDirectory)' -ChildPath 'tests'
@@ -70,7 +73,7 @@ steps:
   condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/master'), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')))
   inputs:
     command: 'pack'
-    packagesToPack: '$(solution)'
+    packagesToPack: '$(Solution)'
     nobuild: true
     includesymbols: true
     versioningScheme: 'byEnvVar'
