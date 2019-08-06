@@ -55,24 +55,37 @@ steps:
   displayName: 'Upload coverage to codecov.io'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Pack projects'
   inputs:
     command: 'pack'
     packagesToPack: '$(solution)'
     nobuild: true
     includesymbols: true
     versioningScheme: 'byBuildNumber'
-  displayName: 'Pack projects'
 
-- task: NuGetToolInstaller@1
+- task: PublishBuildArtifacts@1
   inputs:
-    versionSpec: '5.1.0'
-    checkLatest: true
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   displayName: 'Push *.nupkg and *.snupkg to nuget.org'
   inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'NuGet.org'
-    verbosityPush: 'Normal'
+    command: 'custom'
+    custom: 'nuget'
+    arguments: 'push ''$(Build.ArtifactStagingDirectory)/*.nupkg'' -s $(NuGetSourceServerUrl) -k $(NuGetSourceServerApiKey)'
+
+# - task: NuGetToolInstaller@1
+#   inputs:
+#     versionSpec: '5.1.0'
+#     checkLatest: true
+
+# - task: NuGetCommand@2
+#   displayName: 'Push *.nupkg and *.snupkg to nuget.org'
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;$(Build.ArtifactStagingDirectory)/**/*.snupkg'
+#     nuGetFeedType: 'external'
+#     publishFeedCredentials: 'NuGet.org'
+#     verbosityPush: 'Normal'
