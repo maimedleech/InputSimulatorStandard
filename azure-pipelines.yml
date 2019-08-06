@@ -44,6 +44,7 @@ steps:
   inputs:
     command: 'build'
     projects: '$(Solution)'
+    configuration: '$(BuildConfiguration)'
     versioningScheme: byEnvVar
     versionEnvVar: 'GITVERSION_INFORMATIONALVERSION'
 
@@ -58,6 +59,7 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.Tests.csproj'
+    configuration: '$(BuildConfiguration)'
     arguments: '/p:AltCover=true /p:AltCoverOpenCover=true /p:AltCoverAssemblyExcludeFilter="xunit|$(testAssemblies)"'
     versioningScheme: byEnvVar
     versionEnvVar: 'GITVERSION_INFORMATIONALVERSION'
@@ -74,6 +76,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '$(Solution)'
+    configuration: '$(BuildConfiguration)'
     nobuild: true
     includesymbols: true
     versioningScheme: 'byEnvVar'
