@@ -106,5 +106,13 @@
         /// <returns></returns>
         [DllImport("user32.dll")]
         public static extern uint MapVirtualKey(uint uCode, uint uMapType);
+
+        /// <summary>
+        /// Retrieves the cursor's position, in screen coordinates.
+        /// </summary>
+        /// <param name="lpPoint">A pointer to a <see cref="Point" /> structure that receives the screen coordinates of the cursor.</param>
+        /// <returns>Returns <c>true</c> if successful or <c>false</c> otherwise.</returns>
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool GetCursorPos(out Point lpPoint);
     }
 }

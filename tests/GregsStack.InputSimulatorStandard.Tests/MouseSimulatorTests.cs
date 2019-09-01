@@ -23,5 +23,15 @@
                 Assert.Throws<InvalidOperationException>(() => this.mouseSimulator = new MouseSimulator(null));
             }
         }
+
+        public class PositionProperty : MouseSimulatorTests
+        {
+            [Fact]
+            public void GetPosition()
+            {
+                var position = this.mouseSimulator.Position;
+                Assert.False(position.IsEmpty);
+            }
+        }
     }
 }
