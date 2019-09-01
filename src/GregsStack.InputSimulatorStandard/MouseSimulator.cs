@@ -45,6 +45,19 @@
 
         /// <inheritdoc />
         /// <summary>
+        /// Retrieves the position of the mouse cursor, in screen coordinates.
+        /// </summary>
+        public System.Drawing.Point Position
+        {
+            get
+            {
+                NativeMethods.GetCursorPos(out Point lpPoint);
+                return lpPoint;
+            }
+        }
+
+        /// <inheritdoc />
+        /// <summary>
         /// Simulates mouse movement by the specified distance measured as a delta from the current mouse location in pixels.
         /// </summary>
         /// <param name="pixelDeltaX">The distance in pixels to move the mouse horizontally.</param>

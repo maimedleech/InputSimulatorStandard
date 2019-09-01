@@ -13,6 +13,11 @@
         int MouseWheelClickSize { get; set; }
 
         /// <summary>
+        /// Retrieves the position of the mouse cursor, in screen coordinates.
+        /// </summary>
+        System.Drawing.Point Position { get; }
+
+        /// <summary>
         /// Simulates mouse movement by the specified distance measured as a delta from the current mouse location in pixels.
         /// </summary>
         /// <param name="pixelDeltaX">The distance in pixels to move the mouse horizontally.</param>
