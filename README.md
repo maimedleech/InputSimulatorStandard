@@ -86,3 +86,14 @@ public void GetKeyStatus()
     var isCapsLockOn = simulator.InputDeviceState.IsTogglingKeyInEffect(VirtualKeyCode.CAPITAL);
 }
 ```
+
+## Example: Get current mouse position
+```csharp
+public void GetMousePosition()
+{
+    var simulator = new InputSimulator();
+
+    // Gets the mouse position as System.Drawing.Point
+    var position = simulator.Mouse.Position;
+}
+```
