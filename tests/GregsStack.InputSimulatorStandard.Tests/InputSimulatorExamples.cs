@@ -22,7 +22,7 @@
                .Sleep(1000)
                .TextEntry("notepad")
                .Sleep(1000)
-               .KeyPress(VirtualKeyCode.RETURN)
+               .KeyPress(VirtualKeyCode.NUMPAD_RETURN)
                .Sleep(1000)
                .TextEntry("These are your orders if you choose to accept them...")
                .TextEntry("This message will self destruct in 5 seconds.")

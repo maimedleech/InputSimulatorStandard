@@ -1,7 +1,7 @@
 ﻿namespace GregsStack.InputSimulatorStandard.Native
 {
     /// <summary>
-    /// The list of virtual key codes (see: http://msdn.microsoft.com/en-us/library/ms645540(VS.85).aspx)
+    /// The list of virtual key codes (see: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)
     /// </summary>
     public enum VirtualKeyCode
     {
@@ -58,6 +58,11 @@
         /// ENTER key
         /// </summary>
         RETURN = 0x0D,
+
+        /// <summary>
+        /// Numeric keypad ENTER key
+        /// </summary>
+        NUMPAD_RETURN = 0x0D,
 
         // 0x0E - 0x0F : Undefined
 
@@ -785,7 +790,7 @@
         //
 
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard. Windows 2000/XP: For the US standard keyboard, the ';:' key 
+        /// Used for miscellaneous characters; it can vary by keyboard. Windows 2000/XP: For the US standard keyboard, the ';:' key
         /// </summary>
         OEM_1 = 0xBA,
 
@@ -810,12 +815,12 @@
         OEM_PERIOD = 0xBE,
 
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard. Windows 2000/XP: For the US standard keyboard, the '/?' key 
+        /// Used for miscellaneous characters; it can vary by keyboard. Windows 2000/XP: For the US standard keyboard, the '/?' key
         /// </summary>
         OEM_2 = 0xBF,
 
         /// <summary>
-        /// Used for miscellaneous characters; it can vary by keyboard. Windows 2000/XP: For the US standard keyboard, the '`~' key 
+        /// Used for miscellaneous characters; it can vary by keyboard. Windows 2000/XP: For the US standard keyboard, the '`~' key
         /// </summary>
         OEM_3 = 0xC0,
 
