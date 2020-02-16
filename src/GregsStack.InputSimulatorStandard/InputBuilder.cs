@@ -20,6 +20,7 @@
 
         private static readonly IReadOnlyList<VirtualKeyCode> ExtendedKeys = new List<VirtualKeyCode>
         {
+            VirtualKeyCode.NUMPAD_RETURN,
             VirtualKeyCode.MENU,
             VirtualKeyCode.RMENU,
             VirtualKeyCode.CONTROL,
@@ -87,7 +88,7 @@
         /// <returns>true if the key code is an extended key; otherwise, false.</returns>
         /// <remarks>
         /// The extended keys consist of the ALT and CTRL keys on the right-hand side of the keyboard; the INS, DEL, HOME, END, PAGE UP, PAGE DOWN, and arrow keys in the clusters to the left of the numeric keypad; the NUM LOCK key; the BREAK (CTRL+PAUSE) key; the PRINT SCRN key; and the divide (/) and ENTER keys in the numeric keypad.
-        /// 
+        ///
         /// See http://msdn.microsoft.com/en-us/library/ms646267(v=vs.85).aspx Section "Extended-Key Flag"
         /// </remarks>
         public static bool IsExtendedKey(VirtualKeyCode keyCode) => ExtendedKeys.Contains(keyCode);
@@ -210,7 +211,7 @@
 
             // Handle extended keys:
             // If the scan code is preceded by a prefix byte that has the value 0xE0 (224),
-            // we need to include the KEYEVENTF_EXTENDEDKEY flag in the Flags property. 
+            // we need to include the KEYEVENTF_EXTENDEDKEY flag in the Flags property.
             if ((scanCode & 0xFF00) == 0xE000)
             {
                 down.Data.Keyboard.Flags |= (uint)KeyboardFlag.ExtendedKey;

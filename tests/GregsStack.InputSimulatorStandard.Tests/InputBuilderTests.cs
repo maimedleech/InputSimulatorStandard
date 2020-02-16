@@ -28,6 +28,7 @@
         public class IsExtendedKeyMethod : InputBuilderTests
         {
             [Theory]
+            [InlineData(VirtualKeyCode.NUMPAD_RETURN)]
             [InlineData(VirtualKeyCode.MENU)]
             [InlineData(VirtualKeyCode.RMENU)]
             [InlineData(VirtualKeyCode.CONTROL)]
