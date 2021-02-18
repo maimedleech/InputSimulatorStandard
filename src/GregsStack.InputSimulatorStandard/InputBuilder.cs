@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
 
     using Native;
 
@@ -18,7 +17,7 @@
         /// </summary>
         private readonly List<Input> inputList;
 
-        private static readonly IReadOnlyList<VirtualKeyCode> ExtendedKeys = new List<VirtualKeyCode>
+        private static readonly List<VirtualKeyCode> ExtendedKeys = new List<VirtualKeyCode>
         {
             VirtualKeyCode.NUMPAD_RETURN,
             VirtualKeyCode.MENU,
