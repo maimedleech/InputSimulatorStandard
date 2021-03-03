@@ -62,7 +62,7 @@
         /// <summary>
         /// Numeric keypad ENTER key
         /// </summary>
-        NUMPAD_RETURN = 0x0D,
+        NUMPAD_RETURN = 0x4000000D,
 
         // 0x0E - 0x0F : Undefined
 
@@ -940,5 +940,7 @@
         /// Clear key
         /// </summary>
         OEM_CLEAR = 0xFE,
+
+
     }
 }
