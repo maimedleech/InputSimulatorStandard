@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net40;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net5.0;net6.0;netcoreapp3.1</TargetFrameworks>
     <Title>Input Simulator Standard</Title>
     <Authors>Michael Noonan, Theodoros Chatzigiannakis, Gregor Sindl</Authors>
     <Copyright>Copyright 2009-2019</Copyright>
