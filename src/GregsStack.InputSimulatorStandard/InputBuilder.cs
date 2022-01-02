@@ -106,15 +106,15 @@
                     Type = (uint)InputType.Keyboard,
                     Data =
                             {
-                            Keyboard =
-                                new KeyboardInput
-                                    {
-                                        KeyCode = (ushort) code ,
-                                        Scan = (ushort)(NativeMethods.MapVirtualKey((uint)code, 0) & 0xFFU),
-                                        Flags = IsExtendedKey(keyCode) ? (uint) KeyboardFlag.ExtendedKey : 0,
-                                        Time = 0,
-                                        ExtraInfo = IntPtr.Zero
-                                    }
+                                Keyboard =
+                                    new KeyboardInput
+                                        {
+                                            KeyCode = (ushort) code ,
+                                            Scan = (ushort)(NativeMethods.MapVirtualKey((uint)code, 0) & 0xFFU),
+                                            Flags = IsExtendedKey(keyCode) ? (uint) KeyboardFlag.ExtendedKey : 0,
+                                            Time = 0,
+                                            ExtraInfo = IntPtr.Zero
+                                        }
                             }
                 };
 
